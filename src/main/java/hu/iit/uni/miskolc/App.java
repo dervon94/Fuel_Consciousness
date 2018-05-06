@@ -1,8 +1,16 @@
 package hu.iit.uni.miskolc;
 
+import hu.iit.uni.miskolc.exceptions.WrongInputException;
+import hu.iit.uni.miskolc.model.GasStation;
 import hu.iit.uni.miskolc.model.Trip;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import static hu.iit.uni.miskolc.Util.readInput;
 
 /**
  * Hello world!
@@ -10,32 +18,39 @@ import java.io.*;
  */
 public class App 
 {
+    public static int calculating(Trip trip){
+        int sum = 0;
+        long actualDistance = 0;
+        long actualFuel= trip.getFuelCapacity();
+        trip.getGasStations().sort(Comparator.comparing(GasStation::getPlace));
+        while (actualDistance<(trip.getTripLength()-actualFuel)){
+            List<GasStation> filtered= new ArrayList<>();
+
+            for (GasStation item:trip.getGasStations()) {
+                if((item.getPlace() - actualDistance > 0) && (item.getPlace() - actualDistance - actualFuel <= 0)){
+                    filtered.add(item);
+                }
+            }
+            filtered.sort(Comparator.comparing(GasStation::getFuelPrice));
+            sum += filtered.get(0).getFuelPrice() * (filtered.get(0).getPlace() - actualDistance);
+            actualDistance = filtered.get(0).getPlace();
+
+
+        }
+        return sum;
+    }
     public static void main( String[] args )
     {
-        long tripLength,fuelCapacity,numOfStations;
-        Trip trip;
-        System.out.println( "Helló!" );
+        Trip trip=null;
         try {
-            BufferedReader reader;
-            reader = new BufferedReader(new FileReader("resources/E10.in"));
-            String[] lineElements;
-            tripLength=Long.parseLong(reader.readLine());
-            fuelCapacity=Long.parseLong(reader.readLine());
-            numOfStations=Long.parseLong(reader.readLine());
-            trip=new Trip(tripLength,fuelCapacity,numOfStations);
-            long i=1;
-            while(i<=numOfStations) {
-                lineElements= reader.readLine().split(" ");
-                System.out.println(lineElements[0]+" "+lineElements[1]);
-                trip.addGasStation(Long.parseLong(lineElements[0]),Long.parseLong(lineElements[1]));
-                i++;
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            trip=readInput("resources/E1.in");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Nem taláható input fájl!");
+        } catch (WrongInputException e) {
+            System.out.println("Hibás input fájl!");
         }
-
+        System.out.println(trip.getGasStations());
+        System.out.println("Minimal total cost="+calculating(trip));
 
     }
 }

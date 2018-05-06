@@ -6,6 +6,10 @@ import java.util.List;
 public class Trip {
     private long tripLength;
 
+    public List<GasStation> getGasStations() {
+        return GasStations;
+    }
+
     public Trip(long tripLength, long fuelCapacity, long numOfStations, List<GasStation> gasStations) {
         this.tripLength = tripLength;
         this.fuelCapacity = fuelCapacity;

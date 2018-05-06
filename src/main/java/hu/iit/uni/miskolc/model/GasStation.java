@@ -24,4 +24,12 @@ public class GasStation {
     public void setFuelPrice(long fuelPrice) {
         this.fuelPrice = fuelPrice;
     }
+
+    @Override
+    public String toString() {
+        return "\n GasStation {" +
+                "place=" + place +
+                ", fuelPrice=" + fuelPrice +
+                "} ";
+    }
 }
