@@ -4,7 +4,7 @@ public class GasStation {
     private long place;
     private long fuelPrice;
 
-    public GasStation(Long place, Long fuelPrice) {
+    public GasStation(int place, int fuelPrice) {
         this.place = place;
         this.fuelPrice = fuelPrice;
     }
@@ -27,7 +27,7 @@ public class GasStation {
 
     @Override
     public String toString() {
-        return "\n GasStation {" +
+        return "GasStation {" +
                 "place=" + place +
                 ", fuelPrice=" + fuelPrice +
                 "} ";

@@ -4,48 +4,49 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Trip {
-    private long tripLength;
+    private int tripLength;
+    private int fuelCapacity;
+    private int numOfStations;
+    private List<GasStation> GasStations=new ArrayList<>();
 
     public List<GasStation> getGasStations() {
         return GasStations;
     }
 
-    public Trip(long tripLength, long fuelCapacity, long numOfStations, List<GasStation> gasStations) {
+    public Trip(int tripLength, int fuelCapacity, int numOfStations, List<GasStation> gasStations) {
         this.tripLength = tripLength;
         this.fuelCapacity = fuelCapacity;
         this.numOfStations = numOfStations;
         GasStations = gasStations;
     }
-    public Trip(long tripLength, long fuelCapacity, long numOfStations) {
+    public Trip(int tripLength, int fuelCapacity, int numOfStations) {
         this.tripLength = tripLength;
         this.fuelCapacity = fuelCapacity;
         this.numOfStations = numOfStations;
     }
 
-    private long fuelCapacity;
-    private long numOfStations;
-    private List<GasStation> GasStations=new ArrayList<>();
 
-    public long getTripLength() {
+
+    public int getTripLength() {
         return tripLength;
     }
 
-    public void setTripLength(long tripLength) {
+    public void setTripLength(int tripLength) {
         this.tripLength = tripLength;
     }
 
-    public long getFuelCapacity() {
+    public int getFuelCapacity() {
         return fuelCapacity;
     }
 
-    public void setFuelCapacity(long fuelCapacity) {
+    public void setFuelCapacity(int fuelCapacity) {
         this.fuelCapacity = fuelCapacity;
     }
 
-    public long getNumOfStations() {
+    public int getNumOfStations() {
         return numOfStations;
     }
-    public void addGasStation(Long location, Long fuelPrice){
+    public void addGasStation(int location, int fuelPrice){
         GasStations.add(new GasStation(location,fuelPrice));
 
     }
